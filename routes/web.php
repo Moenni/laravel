@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Empleado;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmpleadoController;
 /*
@@ -24,3 +25,15 @@ Route::get('/empleado', function () {
 */
 
 Route::resource('empleado', EmpleadoController::class) ;
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::
+group(
+    ['middleware' => 'auth'],
+    function () {
+        Route::get('/', [EmpleadoController::class, 'index'])->name('home');
+    }
+);
